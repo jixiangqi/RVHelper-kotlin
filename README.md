@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.langwazi:RVHelper-kotlin:v1.0'
+    implementation 'com.github.langwazi:RVHelper-kotlin:vxx.xx'
 }
 ```
 
