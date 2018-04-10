@@ -18,16 +18,16 @@ class HelperHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var mData: Any? = null
 
     @Suppress("UNCHECKED_CAST")
-    internal fun <T> setOnItemClickListener(onItemClickListener: OnItemClickListener<T>) {
+    internal fun <T> setOnItemClickListener(onItemClickListener: (position: Int, data: T) -> Unit) {
         itemView?.let {
-            it.setOnClickListener { onItemClickListener.onItemClick(mPosition, mData as T) }
+            it.setOnClickListener { onItemClickListener.invoke(mPosition, mData as T) }
         }
     }
 
     @Suppress("UNCHECKED_CAST")
-    internal fun <T> setOnItemLongClickListener(onItemLongClickListener: OnItemLongClickListener<T>) {
+    internal fun <T> setOnItemLongClickListener(onItemLongClickListener: (position: Int, data: T) -> Boolean) {
         itemView?.let {
-            it.setOnLongClickListener { onItemLongClickListener.onItemLongClick(mPosition, mData as T) }
+            it.setOnLongClickListener { onItemLongClickListener.invoke(mPosition, mData as T) }
         }
     }
 

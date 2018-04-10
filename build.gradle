@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 
@@ -30,7 +30,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    supportLibraryVersion = '27.0.1'    //support库的版本
+    supportLibraryVersion = '27.1.1'    //support库的版本
     compileSdkVersion = 27
     minSdkVersion = 14
     targetSdkVersion = 27

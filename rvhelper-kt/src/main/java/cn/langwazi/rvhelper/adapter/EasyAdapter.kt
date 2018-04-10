@@ -1,6 +1,5 @@
 package cn.langwazi.rvhelper.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 
 /**
@@ -11,8 +10,7 @@ import android.view.ViewGroup
 abstract class EasyAdapter<T>(layoutResId: Int) : AbstractAdapter<T, HelperHolder>(layoutResId) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HelperHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(layoutResId, parent, false)
+        val view = parent.inflate(layoutResId)
         val holder = HelperHolder(view)
         mOnItemClickListener?.let { holder.setOnItemClickListener(it) }
         mOnItemLongClickListener?.let { holder.setOnItemLongClickListener(it) }

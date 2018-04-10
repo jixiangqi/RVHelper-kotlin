@@ -2,10 +2,8 @@ package cn.langwazi.rvhelper.adapter
 
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 
 /**
  * Created by langwa on 2017/12/10.
@@ -20,7 +18,7 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
     //加载更多视图
     private var mLoadView: AbstractLoadView? = null
     //listener
-    private var mOnRequestLoadListener: OnRequestLoadListener? = null
+    private var mOnRequestLoadListener: (() -> Unit)? = null
     //加载控制开关
     private var mLoadMoreEnable = false
     //标记是否在加载中
@@ -40,8 +38,7 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
         }
 
         //content
-        val view = LayoutInflater.from(parent.context)
-                .inflate(layoutResId, parent, false)
+        val view = parent.inflate(layoutResId)
         val holder = HelperHolder(view)
         mOnItemClickListener?.let { holder.setOnItemClickListener(it) }
         mOnItemLongClickListener?.let { holder.setOnItemLongClickListener(it) }
@@ -95,7 +92,7 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
         //切换到loading状态
         mIsLoading = true
         mLoadView?.loading()
-        mOnRequestLoadListener!!.onRequestLoadMore()
+        mOnRequestLoadListener?.invoke()
     }
 
     /**
@@ -135,7 +132,7 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
     }
 
     /**
-     * 设置回调 [OnRequestLoadListener.onRequestLoadMore] 触发个数.
+     * 设置回调触发个数.
      *
      * @param preNumber 提前加载的触发个数,他的值必须大于1.
      */
@@ -163,7 +160,7 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
         mIsLoading = true  //重新加载
         mLoadMoreEnable = true
         mLoadView?.loading()
-        mOnRequestLoadListener?.onRequestLoadMore()
+        mOnRequestLoadListener?.invoke()
     }
 
     /**
@@ -199,7 +196,7 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
      *
      * @param onRequestLoadListener 回调
      */
-    fun setOnRequestLoadListener(onRequestLoadListener: OnRequestLoadListener) {
+    fun setOnRequestLoadListener(onRequestLoadListener: () -> Unit) {
         this.mOnRequestLoadListener = onRequestLoadListener
     }
 

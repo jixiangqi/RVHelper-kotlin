@@ -26,6 +26,6 @@ dependencies {
     implementation rootProject.ext.appcompat
     implementation rootProject.ext.recyclerview
     implementation rootProject.ext.kotlinStdlibJdk
-//    implementation project(path: ':rvhelper-kt')
-    implementation 'com.github.langwazi:RVHelper-kotlin:v1.0'
+    implementation project(path: ':rvhelper-kt')
+//    implementation 'com.github.langwazi:RVHelper-kotlin:v1.0'
 }

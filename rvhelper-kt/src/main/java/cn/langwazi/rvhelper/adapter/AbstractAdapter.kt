@@ -2,12 +2,19 @@ package cn.langwazi.rvhelper.adapter
 
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import java.util.ArrayList
 
 /**
  * Created by langwa on 2018/3/25.
  * adapter基类.
  */
+
+fun ViewGroup.inflate(@LayoutRes resource: Int, attachToRoot: Boolean = false): View =
+        LayoutInflater.from(context).inflate(resource, this, attachToRoot)
+
 abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes internal val layoutResId: Int)
     : RecyclerView.Adapter<VH>() {
 
@@ -15,8 +22,8 @@ abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes inter
     val mDatas = ArrayList<T>()
 
     //监听事件
-    var mOnItemLongClickListener: OnItemLongClickListener<T>? = null
-    var mOnItemClickListener: OnItemClickListener<T>? = null
+    var mOnItemLongClickListener: ((position: Int, data: T) -> Boolean)? = null
+    var mOnItemClickListener: ((position: Int, data: T) -> Unit)? = null
 
     /**
      * adapter进行数据绑定的方法.
@@ -32,7 +39,7 @@ abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes inter
      *
      * @param onItemClickListener listener
      */
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener<T>) {
+    fun setOnItemClickListener(onItemClickListener: (position: Int, data: T) -> Unit) {
         this.mOnItemClickListener = onItemClickListener
     }
 
@@ -41,7 +48,7 @@ abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes inter
      *
      * @param onItemLongClickListener listener
      */
-    fun setOnItemLongClickListener(onItemLongClickListener: OnItemLongClickListener<T>) {
+    fun setOnItemLongClickListener(onItemLongClickListener: (position: Int, data: T) -> Boolean) {
         this.mOnItemLongClickListener = onItemLongClickListener
     }
 
