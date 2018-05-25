@@ -31,6 +31,24 @@ class HelperHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    internal fun <T> setOnItemChildClickListener(childIds: IntArray,
+                                                 OnItemChildClickListener: (position: Int, data: T, child: View) -> Unit) {
+        childIds.forEach {
+            val view = itemView?.findViewById<View>(it)
+            view?.setOnClickListener { OnItemChildClickListener.invoke(mPosition, mData as T, it) }
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    internal fun <T> setOnItemChildLongClickListener(childLongIds: IntArray,
+                                                 OnItemChildLongClickListener: (position: Int, data: T, child: View) -> Boolean) {
+        childLongIds.forEach {
+            val view = itemView?.findViewById<View>(it)
+            view?.setOnLongClickListener { OnItemChildLongClickListener.invoke(mPosition, mData as T, it) }
+        }
+    }
+
     internal fun <T> bind(position: Int, data: T) {
         this.mPosition = position
         this.mData = data

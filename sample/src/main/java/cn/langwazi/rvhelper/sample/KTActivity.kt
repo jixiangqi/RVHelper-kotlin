@@ -30,6 +30,21 @@ class KTActivity : AppCompatActivity() {
             true
         }
 
+        adapter.setOnItemChildClickListener(R.id.child1, R.id.child2) { position, data, child ->
+            when (child.id) {
+                R.id.child1 -> Toast.makeText(this@KTActivity, "子控件1:${data.content},position=$position", Toast.LENGTH_SHORT).show()
+                R.id.child2 -> Toast.makeText(this@KTActivity, "子控件2:${data.content},position=$position", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        adapter.setOnItemChildLongClickListener(R.id.child3, R.id.child4) { position, data, child ->
+            when (child.id) {
+                R.id.child3 -> Toast.makeText(this@KTActivity, "长按子控件3:${data.content},position=$position", Toast.LENGTH_SHORT).show()
+                R.id.child4 -> Toast.makeText(this@KTActivity, "长按子控件4:${data.content},position=$position", Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+
         adapter.setOnRequestLoadListener {
             recyclerView.postDelayed({
                 when {

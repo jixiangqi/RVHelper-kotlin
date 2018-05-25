@@ -1,5 +1,6 @@
 package cn.langwazi.rvhelper.adapter
 
+import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,12 +19,19 @@ fun ViewGroup.inflate(@LayoutRes resource: Int, attachToRoot: Boolean = false): 
 abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes internal val layoutResId: Int)
     : RecyclerView.Adapter<VH>() {
 
+    //子view点击id
+    internal var mChildIds: IntArray? = null
+    //子view长按id
+    internal var mChildLongIds: IntArray? = null
+
     //数据源
     val mDatas = ArrayList<T>()
 
     //监听事件
-    var mOnItemLongClickListener: ((position: Int, data: T) -> Boolean)? = null
-    var mOnItemClickListener: ((position: Int, data: T) -> Unit)? = null
+    internal var mOnItemLongClickListener: ((position: Int, data: T) -> Boolean)? = null
+    internal var mOnItemClickListener: ((position: Int, data: T) -> Unit)? = null
+    internal var mOnItemChildClickListener: ((position: Int, data: T, child: View) -> Unit)? = null
+    internal var mOnItemChildLongClickListener: ((position: Int, data: T, child: View) -> Boolean)? = null
 
     /**
      * adapter进行数据绑定的方法.
@@ -50,6 +58,29 @@ abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes inter
      */
     fun setOnItemLongClickListener(onItemLongClickListener: (position: Int, data: T) -> Boolean) {
         this.mOnItemLongClickListener = onItemLongClickListener
+    }
+
+
+    /**
+     * 设置item子view点击事件.
+     * @param childIds 点击事件子view的id
+     * @param OnItemChildClickListener listener
+     */
+    fun setOnItemChildClickListener(@IdRes vararg childIds: Int,
+                                    OnItemChildClickListener: (position: Int, data: T, child: View) -> Unit) {
+        mChildIds = childIds
+        this.mOnItemChildClickListener = OnItemChildClickListener
+    }
+
+    /**
+     * 设置item子view长按事件.
+     * @param childLongIds 长按子view的id
+     * @param OnItemChildLongClickListener listener
+     */
+    fun setOnItemChildLongClickListener(@IdRes vararg childLongIds: Int,
+                                        OnItemChildLongClickListener: (position: Int, data: T, child: View) -> Boolean) {
+        mChildLongIds = childLongIds
+        this.mOnItemChildLongClickListener = OnItemChildLongClickListener
     }
 
     /**

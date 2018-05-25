@@ -16,7 +16,7 @@ class KTLoadMoreAdapter constructor(layoutResId: Int)
     : LoadMoreAdapter<KTData>(layoutResId), StickyAdapter {
 
     override fun convert(holder: HelperHolder, position: Int, data: KTData) {
-        (holder.itemView as TextView).text = data.content
+        holder.findView<TextView>(R.id.content).text = data.content
     }
 
     override fun getSticky(position: Int): Sticky? {

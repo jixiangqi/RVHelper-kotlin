@@ -14,6 +14,12 @@ abstract class EasyAdapter<T>(layoutResId: Int) : AbstractAdapter<T, HelperHolde
         val holder = HelperHolder(view)
         mOnItemClickListener?.let { holder.setOnItemClickListener(it) }
         mOnItemLongClickListener?.let { holder.setOnItemLongClickListener(it) }
+        if (mOnItemChildClickListener != null && mChildIds != null) {
+            holder.setOnItemChildClickListener(mChildIds!!, mOnItemChildClickListener!!)
+        }
+        if (mOnItemChildLongClickListener != null && mChildLongIds != null) {
+            holder.setOnItemChildLongClickListener(mChildLongIds!!, mOnItemChildLongClickListener!!)
+        }
         return holder
     }
 

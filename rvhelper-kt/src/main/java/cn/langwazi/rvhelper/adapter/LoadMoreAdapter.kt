@@ -42,8 +42,13 @@ abstract class LoadMoreAdapter<T>(@LayoutRes layoutResId: Int)
         val holder = HelperHolder(view)
         mOnItemClickListener?.let { holder.setOnItemClickListener(it) }
         mOnItemLongClickListener?.let { holder.setOnItemLongClickListener(it) }
+        if (mOnItemChildClickListener != null && mChildIds != null) {
+            holder.setOnItemChildClickListener(mChildIds!!, mOnItemChildClickListener!!)
+        }
+        if (mOnItemChildLongClickListener != null && mChildLongIds != null) {
+            holder.setOnItemChildLongClickListener(mChildLongIds!!, mOnItemChildLongClickListener!!)
+        }
         return holder
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
