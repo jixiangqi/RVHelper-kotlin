@@ -64,23 +64,23 @@ abstract class AbstractAdapter<T, VH : RecyclerView.ViewHolder>(@LayoutRes inter
     /**
      * 设置item子view点击事件.
      * @param childIds 点击事件子view的id
-     * @param OnItemChildClickListener listener
+     * @param onItemChildClickListener listener
      */
     fun setOnItemChildClickListener(@IdRes vararg childIds: Int,
-                                    OnItemChildClickListener: (position: Int, data: T, child: View) -> Unit) {
+                                    onItemChildClickListener: (position: Int, data: T, child: View) -> Unit) {
         mChildIds = childIds
-        this.mOnItemChildClickListener = OnItemChildClickListener
+        this.mOnItemChildClickListener = onItemChildClickListener
     }
 
     /**
      * 设置item子view长按事件.
      * @param childLongIds 长按子view的id
-     * @param OnItemChildLongClickListener listener
+     * @param onItemChildLongClickListener listener
      */
     fun setOnItemChildLongClickListener(@IdRes vararg childLongIds: Int,
-                                        OnItemChildLongClickListener: (position: Int, data: T, child: View) -> Boolean) {
+                                        onItemChildLongClickListener: (position: Int, data: T, child: View) -> Boolean) {
         mChildLongIds = childLongIds
-        this.mOnItemChildLongClickListener = OnItemChildLongClickListener
+        this.mOnItemChildLongClickListener = onItemChildLongClickListener
     }
 
     /**
